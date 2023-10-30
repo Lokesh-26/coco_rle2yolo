@@ -252,12 +252,13 @@ def convert_ath_json(json_dir):  # dir contains json annotations and images
 
 
 def convert_coco_json(json_dir='../coco/annotations/', use_segments=False, use_keypoints=False, cls91to80=False):
-    save_dir = make_dirs()  # output directory
+    # create folders in the json directory
+    save_dir = make_dirs(json_dir)  # output directory
     coco80 = coco91_to_coco80_class()
 
     # Import json
-    for json_file in sorted(Path(json_dir).resolve().glob('*.json')):
-        fn = Path(save_dir) / 'labels' / json_file.stem.replace('instances_', '')  # folder name
+    for json_file in sorted(Path(json_dir).resolve().glob('scene_gt_coco_modal.json')):
+        fn = Path(save_dir) / 'labels' / 'train'
         fn.mkdir()
         with open(json_file) as f:
             data = json.load(f)
